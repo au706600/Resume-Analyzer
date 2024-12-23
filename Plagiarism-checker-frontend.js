@@ -1,10 +1,75 @@
 //const {cosineSimilarity} = require('./Plagiarism-checker-server.js');
+// x
+// r
 
 /*
-const check_plagi_btn = document.querySelector('.button1');
-var text_area = document.querySelector('.textarea');
-var file = document.getElementById('file');
+// Using express.js
+//require('dotenv').config();
+const express = require('express');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const iconv = require('iconv-lite');
+const { extractText, compareLocal_with_online } = require('./Plagiarism-checker-server.js');
+const { error } = require('console');
+const app = express();
+const port = 3000;
 */
+/*
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/');
+    }, 
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()} - ${file.originalname}`);
+    }
+});
+*/
+/*
+const storage = multer.memoryStorage();
+
+const upload = multer({ storage });
+
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'Plagiarism-checker.html'));
+});
+
+const sanitizeFileName = (fileName) => {
+    return fileName.replace(/[^a-zA-Z0-9.-]/g, '_');
+}
+
+app.post('/plagiarism', upload.single('file'), async (req, res) => {
+    try{
+        const fileName = iconv.decode(Buffer.from(req.file.originalname, 'binary'), 'utf-8');
+        //console.log(req.file);
+        console.log("File name: ", fileName);
+        const sanitizeFilename = sanitizeFileName(fileName);
+        console.log("Sanitized filename: ", sanitizeFilename);
+        //console.log("File name: ", fileName);
+        //const filePath = req.file.path;
+        const fileBuffer = req.file.buffer;
+        const searchTerm = req.body.searchTerm;
+        const localText = await extractText(fileBuffer);
+        console.log(localText);
+        const Compare = await compareLocal_with_online(localText, searchTerm);
+        console.log(Compare);
+        //fs.unlinkSync(filePath);
+        res.status(200).json({success: true, extractedText: localText, Compare});
+    } catch (error)
+    {
+        res.status(500).json({success: false, error: error.message});
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});
+*/
+
 
 //const {extractText} = require('./Plagiarism-checker-server.js');
 const http = require('http');
@@ -14,32 +79,10 @@ const path = require('path');
 const { extractText, compareLocal_with_online } = require('./Plagiarism-checker-server.js');
 //const {compareLocal_with_online} = require('./Plagiarism-checker-server.js');
 
-/*
-check_plagi_btn.addEventListener('click', () => 
-{  
-    //text_area.value += "Hello, How are you\n";
-    if(file.files.length > 0)
-    {
-        const filepath = file.files[0];
-        const formData = new FormData();
-        formData.append('file', filepath);
-
-        const object = {
-            method: 'POST', 
-            body: formData
-        };
-        fetch('http://localhost:3000', object).then(response => response.text()).then(data => {
-            text_area.value = data;
-        })
-    }
-});
-
-*/
-
 http.createServer((req, res) => {
     if(req.method == 'GET')
     {
-        fs.readFile(path.join(__dirname, 'Plagiarism-checker.html'), (err, data) => 
+        fs.readFile(path.join(__dirname, 'public', 'Plagiarism-checker.html'), (err, data) => 
         {
             res.writeHead(200, {'Content-type':'text/html'});
             res.end(data);
@@ -65,7 +108,7 @@ http.createServer((req, res) => {
                 return;
             }
 
-            console.log("Uploaded file path:", file.filepath);
+            //console.log("Uploaded file path:", file.filepath);
 
             try {
                 console.log("Received file:", file.filepath);
@@ -75,7 +118,7 @@ http.createServer((req, res) => {
                     mimetype: file.mimetype
                 });
                 const extractedText = await extractText(file.filepath);
-                console.log("Extracted text:", extractedText);
+                //console.log("Extracted text:", extractedText);
                 if (!extractedText.length) {
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify([]));
@@ -86,17 +129,10 @@ http.createServer((req, res) => {
                     extractedText,
                     extractedText.join(' ')
                 );
-                console.log("Results: ", results);
+               // console.log("Results: ", results);
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({extractedText: extractedText.join('\n'), results}));
-                /*
-                const results = [
-                    { content: 'Dummy URL content', similarity: 0.75 },
-                    { content: 'Another dummy content', similarity: 0.65 }
-                ];
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify(results));
-                */
+                
             } catch (error) {
                 res.writeHead(500, { 'Content-Type': 'text/plain' });
                 res.end('Error processing the uploaded file.');
@@ -106,6 +142,5 @@ http.createServer((req, res) => {
 }).listen(3000, () => {
     console.log(`Server is running on http://localhost:3000`);
 });
-
 
 
