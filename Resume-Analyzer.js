@@ -394,6 +394,8 @@ async function compareLocal_with_online(localText, searchTerm)
     return results;
 }
 
+module.exports = {compareLocal_with_online, extractText};
+
 
 
 

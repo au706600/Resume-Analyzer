@@ -82,7 +82,7 @@ const { extractText, compareLocal_with_online } = require('./Resume-Analyzer.js'
 http.createServer((req, res) => {
     if(req.method == 'GET')
     {
-        fs.readFile(path.join(__dirname, 'public', 'Plagiarism-checker.html'), (err, data) => 
+        fs.readFile(path.join(__dirname, 'public', 'Resume-Analyzer.html'), (err, data) => 
         {
             res.writeHead(200, {'Content-type':'text/html'});
             res.end(data);
