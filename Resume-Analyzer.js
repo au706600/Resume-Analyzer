@@ -69,52 +69,61 @@ function frequencyCounts(text)
 
 //----------------------------------------
 
-const Fs = require('fs');
-//const pdfjsLib = require('pdfjs-dist');
-//const pdfjsLib = import('pdfjs-dist/build/pdf.js');
-const pdf = require('pdf-parse');
-//const scrapingBee = require('scrapingbee');
+    const Fs = require('fs');
+    //const pdfjsLib = require('pdfjs-dist');
+    //const pdfjsLib = import('pdfjs-dist/build/pdf.js');
+    const pdf = require('pdf-parse');
+    //const scrapingBee = require('scrapingbee');
 
-// This section should display the pdf file
+    // This section should display the pdf file
 
-let pdfjsLib = (async () => {
-    try{
-        const Module = await import('pdfjs-dist/legacy/build/pdf.js');
-        console.log("Successful!");
-        return Module;
-    }
-    catch (error)
+    let pdfjsLib = (async () => {
+        try{
+            const Module = await import('pdfjs-lib/legacy/build/pdf.js');
+            console.log("Successful!");
+            return Module.default;
+        }
+        catch (error)
+        {
+            console.error("Error importing pdfjs-dist:", error);
+            throw error;
+        }
+    })();
+
+    async function showPdf(filePath)
     {
-        console.error("Error importing pdfjs-dist:", error);
-        throw error;
-    }
-});
+        const pdfjslib = await pdfjsLib;
+        const dataBuffer = Fs.readFileSync(filePath);
 
-async function showPdf(filePath)
-{
-    //const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.js');
-    const pdfjslib = await pdfjsLib;
-    const dataBuffer = Fs.readFileSync(filePath);
-    
-    const data_promise = await pdfjslib.getDocument({data: dataBuffer}).promise;
-    console.log("PDF loaded successfully!");
+        console.log("PDF loaded successfully!");
 
-    const pages = data_promise.numPages;
-    let map = [];
+        /*
 
-    for(let i = 1; i <= pages; i++)
-    {
-        map.push({page: i});
-        //const textContent = await page.getTextContent();
-        //map.push(textContent.items.map(item => item.str).join(' '));
+        const pages = data_promise.numPages;
+        let map = [];
+
+        for(let i = 1; i <= pages; i++)
+        {
+            const textContent = await data_promise.getPage(i).then(page => page.getTextContent());
+            const pageText = textContent.items.map(item => item.str).join(' ');
+            map.push(pageText);
+            //map.push(`Page ${i}: ${pageText}`);
+
+        }
+        console.log("Extracted text from PDF: ", map);
+        return map;
+
+        */
+
+        return dataBuffer.toString('base64');
         
     }
 
-    return map;
-    
-}
+    module.exports = {showPdf};
 
-module.exports = {showPdf};
+//------------------------------
+
+// Named entity recognition should be used for extracting the different titles of resumes
 
 // This section extracts text from a pdf file
 
