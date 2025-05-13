@@ -16,7 +16,7 @@
         />
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 
         <style>
             textarea
@@ -30,7 +30,6 @@
             .form-control
             {
                 display: inline-block;
-                position: relative;
             }
 
             .button1
@@ -220,6 +219,7 @@
                         //const pdfjsLib = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.507/pdf.min.js');
                         //pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
                         //const retrieveDocument = pdfjsLib.getDocument(result.show_pdf);
+                        
                         const arrayBuffer = base64ToArrayBuffer(result.show_pdf);
                         console.log("ArrayBuffer", arrayBuffer);
                         pdfjsLib.getDocument({data: arrayBuffer}).promise.then((pdfDoc) => {
@@ -234,7 +234,7 @@
                                 result_container.height = viewport.height;
                                 result_container.classList.remove('hidden');
                                 const render = {
-                                    ctx: ctx, 
+                                    canvasContext: ctx, 
                                     viewport: viewport
                                 };
                                 return page.render(render).promise;
