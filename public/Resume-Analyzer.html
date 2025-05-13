@@ -14,6 +14,10 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>-->
+
         <style>
             textarea
             {
@@ -26,6 +30,7 @@
             .form-control
             {
                 display: inline-block;
+                position: relative;
             }
 
             .button1
@@ -61,6 +66,7 @@
                 position: relative;
                 overflow: auto;
             }
+            
 
             #inline-forms
             {
@@ -140,15 +146,17 @@
             </div>
         </div>
         
-        <div style="margin-top: 20px;">
+        <div style="margin-top: 20px;" class = "form-group">
             <input style="width: auto;" type="file" name="file" id="file" class="form-control" />
             <button class="button1" type="button">Click</button>
         </div>
-        
-
+    
+        <!--
         <section data-closable>
             <p class="hidden" id="result" data-close></p>
         </section> 
+
+    -->
 
         <!-- Bootstrap JavaScript Libraries -->
         <script
@@ -167,15 +175,16 @@
         <script>
             //const text_area = document.querySelector('.textarea');
 
+            // Function to convert base64 string to ArrayBuffer, as arrayBuffer is needed for pdfjsLib
             function base64ToArrayBuffer(base64)
             {
-                const binaryStrng = atob(base64);
-                const length = binaryStrng.length;
+                const binaryString = atob(base64);
+                const length = binaryString.length;
                 const bytes = new Uint8Array(length);
 
                 for(let i = 0; i < length; i++)
                 {
-                    bytes[i] = binaryStrng.charCodeAt(i); 
+                    bytes[i] = binaryString.charCodeAt(i); 
                 }
 
                 return bytes.buffer; 
@@ -208,24 +217,28 @@
                     const result = await response.json();
             
                     if (result.show_pdf) {
-                        const pdfjsLib = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.507/pdf.min.js');
+                        //const pdfjsLib = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.507/pdf.min.js');
+                        //pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
                         //const retrieveDocument = pdfjsLib.getDocument(result.show_pdf);
                         const arrayBuffer = base64ToArrayBuffer(result.show_pdf);
                         console.log("ArrayBuffer", arrayBuffer);
-                        const pdfDoc = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
-                        const page = await pdfDoc.getPage(pdfData.currentPage);
-                        const viewport = page.getViewport({scale: pdfData.zoom});
+                        pdfjsLib.getDocument({data: arrayBuffer}).promise.then((pdfDoc) => {
+                            return render(pdfDoc);
+                        });
 
-                        result_container.width = viewport.width;
-                        result_container.height = viewport.height;
-                        result_container.classList.remove('hidden');
-
-                        const render = {
-                            canvasContext: ctx, 
-                            viewport: viewport
-                        };
-
-                        await page.render(render).promise;
+                        function render(pdfDoc){
+                            pdfDoc.getPage(pdfData.currentPage).then((page) => {
+                                const viewport = page.getViewport({scale: pdfData.zoom});
+                                result_container.width = viewport.width;
+                                result_container.height = viewport.height;
+                                result_container.classList.remove('hidden');
+                                const render = {
+                                    ctx: ctx, 
+                                    viewport: viewport
+                                };
+                                return page.render(render).promise;
+                            });
+                        }
                     } else {
                         alert('Error Resume-analyzer Please try again.'); 
                     }

@@ -9,6 +9,27 @@ const path = require('path');
 const { showPdf} = require('./Resume-Analyzer.js');
 
 http.createServer((req, res) => {
+
+    /*
+    if(req.method == 'GET' && req.url.startsWith('/js/'))
+    {
+        const filePath = path.join(__dirname, req.url);
+        fs.readFile(filePath, (err, data) => {
+            if (err) {
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('File not found');
+                return;
+            }
+            else {
+            res.writeHead(200, { 'Content-Type': 'application/javascript' });
+            res.end(data);
+            }
+        });
+        return;
+    }
+
+    */
+
     if(req.method == 'GET')
     {
         fs.readFile(path.join(__dirname, 'public', 'Resume-Analyzer.html'), (err, data) => 
@@ -75,54 +96,6 @@ http.createServer((req, res) => {
 });
 
 
-//----------------------------------------
 
-/*
-
-const http = require('http');
-const formidable = require('formidable');
-const fs = require('fs');
-const path = require('path');
-const { showPdf } = require('./Resume-Analyzer.js');
-
-http.createServer((req, res) => {
-    if (req.method === 'GET') {
-        fs.readFile(path.join(__dirname, 'public', 'Resume-Analyzer.html'), (err, data) => {
-            if (err) {
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.end('Error loading HTML file.');
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.end(data);
-        });
-    } else if (req.method === 'POST') {
-        const form = new formidable.IncomingForm();
-        form.parse(req, async (err, fields, files) => {
-            if (err) {
-                res.writeHead(400, { 'Content-Type': 'text/plain' });
-                res.end('Error parsing the form data.');
-                return;
-            }
-
-            const file = Array.isArray(files.file) ? files.file[0] : files.file;
-
-            try {
-                const show_pdf = await showPdf(file.filepath);
-                console.log("Sending extracted PDF content:", show_pdf);
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ show_pdf: show_pdf }));
-            } catch (error) {
-                console.error("Error processing the uploaded file:", error);
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.end('Error processing the uploaded file.');
-            }
-        });
-    }
-}).listen(3000, () => {
-    console.log(`Server is running on http://localhost:3000`);
-});
-
-*/
 
 

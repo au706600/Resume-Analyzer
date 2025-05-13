@@ -70,12 +70,11 @@ function frequencyCounts(text)
 //----------------------------------------
 
     const Fs = require('fs');
-    //const pdfjsLib = require('pdfjs-dist');
-    //const pdfjsLib = import('pdfjs-dist/build/pdf.js');
-    const pdf = require('pdf-parse');
-    //const scrapingBee = require('scrapingbee');
+    //const pdf = require('pdf-parse');
 
     // This section should display the pdf file
+
+    /*
 
     let pdfjsLib = (async () => {
         try{
@@ -90,9 +89,11 @@ function frequencyCounts(text)
         }
     })();
 
+    */
+
     async function showPdf(filePath)
     {
-        const pdfjslib = await pdfjsLib;
+        //const pdfjslib = await pdfjsLib;
         const dataBuffer = Fs.readFileSync(filePath);
 
         console.log("PDF loaded successfully!");
