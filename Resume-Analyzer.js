@@ -66,6 +66,7 @@ function frequencyCounts(text)
 
     //const Fs = require('fs');
     import Fs from 'fs';
+    
     //const pdf = require('pdf-parse');
 
     // This section should display the pdf file
