@@ -1,7 +1,6 @@
 
 // Jamesjaxccbhfdbfhdsbfbdshff
 
-// Hugging-face API key: hf
 
 //const client = new OpenAI();
 //import {pipeline} from '@huggingface/transformers';
