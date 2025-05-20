@@ -1,0 +1,12 @@
+{
+    "name": "ai-bot-analyzer",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "start": "node ai-bot-analyzer.js"
+    },
+    "dependencies": {
+        "@huggingface/inference": "^3.13.1",
+        "list": "^2.0.19"
+    }
+}

@@ -2,11 +2,19 @@
 
 //const {extractText} = require('./Plagiarism-checker-server.js');
 
-const http = require('http');
-const formidable = require('formidable');
-const fs = require('fs');
-const path = require('path');
-const { showPdf} = require('./Resume-Analyzer.js');
+//const http = require('http');
+import http from 'http';
+//const formidable = require('formidable');
+//import formidable from 'formidable';
+import * as formidable from 'formidable';
+//const fs = require('fs');
+import fs from 'fs';
+//const path = require('path');
+import path from 'path';
+//const { showPdf} = require('./Resume-Analyzer.js');
+import { showPdf } from './Resume-Analyzer.js';
+
+import { fileURLToPath } from 'url';
 
 http.createServer((req, res) => {
 
@@ -32,6 +40,8 @@ http.createServer((req, res) => {
 
     if(req.method == 'GET')
     {
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
         fs.readFile(path.join(__dirname, 'public', 'Resume-Analyzer.html'), (err, data) => 
         {
             res.writeHead(200, {'Content-type':'text/html'});

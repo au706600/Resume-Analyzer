@@ -147,7 +147,7 @@
         
         <div style="margin-top: 20px;" class = "form-group">
             <input style="width: auto;" type="file" name="file" id="file" class="form-control" />
-            <button class="button1" type="button">Click</button>
+            <button class="button1" type="button">Upload & Scan</button>
         </div>
     
         <!--
@@ -177,9 +177,9 @@
             // Function to convert base64 string to ArrayBuffer, as arrayBuffer is needed for pdfjsLib
             function base64ToArrayBuffer(base64)
             {
-                const binaryString = atob(base64);
+                const binaryString = atob(base64); 
                 const length = binaryString.length;
-                const bytes = new Uint8Array(length);
+                const bytes = new Uint8Array(length); 
 
                 for(let i = 0; i < length; i++)
                 {

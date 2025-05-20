@@ -1,11 +1,5 @@
-// node.js file
-// https://stackoverflow.com/questions/51362252/javascript-cosine-similarity-function
-// https://www.semrush.com/blog/tf-idf/
-// https://gist.github.com/tomericco/14b5ceac90d6eed6f9ba6cb5305f8fab
-// https://www.scrapingbee.com/documentation/#render_js
-// https://app.scrapingbee.com/dashboard?account_created=True
-// x
-// ||
+
+/*
 
 function buildVocabulary(texts)
 
@@ -65,11 +59,13 @@ function frequencyCounts(text)
     return wordFreqMap;
 }
 
+*/
 
 
 //----------------------------------------
 
-    const Fs = require('fs');
+    //const Fs = require('fs');
+    import Fs from 'fs';
     //const pdf = require('pdf-parse');
 
     // This section should display the pdf file
@@ -91,7 +87,7 @@ function frequencyCounts(text)
 
     */
 
-    async function showPdf(filePath)
+    export async function showPdf(filePath)
     {
         //const pdfjslib = await pdfjsLib;
         const dataBuffer = Fs.readFileSync(filePath);
@@ -120,7 +116,8 @@ function frequencyCounts(text)
         
     }
 
-    module.exports = {showPdf};
+    //module.exports = {showPdf};
+    //module.exports = {showPdf};
 
 //------------------------------
 
