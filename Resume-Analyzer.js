@@ -113,12 +113,11 @@ function frequencyCounts(text)
 
         */
 
-        
+
         return dataBuffer.toString('base64');
         
     }
 
-    //module.exports = {showPdf};
     //module.exports = {showPdf};
 
 //------------------------------

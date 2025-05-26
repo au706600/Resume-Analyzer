@@ -1,6 +1,7 @@
 
 // Jamesjaxccbhfdbfhdsbfbdshff
 
+// Hugging-face API key: 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
 
 //const client = new OpenAI();
 //import {pipeline} from '@huggingface/transformers';
@@ -77,7 +78,7 @@ async function getResponse()
     const response = await fetch("https://router.huggingface.co/novita/v3/openai/chat/completions", {
         method: "POST", 
         headers: {
-            Authorization: "Bearer hf_", 
+            Authorization: "Bearer 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", 
             "Content-Type": "application/json",
         }, 
         body: JSON.stringify({
@@ -110,9 +111,10 @@ main().then(() => {
 
 */
 
+/*
 import { InferenceClient } from "@huggingface/inference";
 
-const client = new InferenceClient("hf_-----");
+const client = new InferenceClient("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");
 
 const chatCompletion = await client.chatCompletion({
     provider: "novita",
@@ -126,3 +128,26 @@ const chatCompletion = await client.chatCompletion({
 });
 
 console.log(chatCompletion.choices[0].message.content);
+
+*/
+
+//-- https://huggingface.co/docs/inference-providers/index
+//-- https://huggingface.co/docs/inference-providers/providers/novita
+
+import { InferenceClient } from "@huggingface/inference";
+
+export async function AI_Resume_Analyzer(resume)
+{
+    const client = new InferenceClient("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");
+
+    const chatCompletion = await client.chatCompletion({
+        provider: "novita", 
+        model: "deepseek-ai/DeepSeek-V3-0324",
+        messages: [{
+            role: "user", 
+            content: `Analyze each section of the resume and provide feedback and suggestions for improvement. Resume: ${resume}`,
+        },],
+    });
+
+    return chatCompletion.choices[0].message.content;
+}
