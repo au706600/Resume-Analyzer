@@ -134,7 +134,7 @@ console.log(chatCompletion.choices[0].message.content);
 //-- https://huggingface.co/docs/inference-providers/index
 //-- https://huggingface.co/docs/inference-providers/providers/novita
 
-// Bot
+// Bot-AI
 import { InferenceClient } from "@huggingface/inference";
 import {dotenv} from 'dotenv';
 dotenv.config();
