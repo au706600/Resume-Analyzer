@@ -135,10 +135,12 @@ console.log(chatCompletion.choices[0].message.content);
 //-- https://huggingface.co/docs/inference-providers/providers/novita
 
 import { InferenceClient } from "@huggingface/inference";
+import {dotenv} from 'dotenv';
+dotenv.config();
 
 export async function AI_Resume_Analyzer(resume)
 {
-    const client = new InferenceClient("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");
+    const client = new InferenceClient(process.env.apiKey);
 
     const chatCompletion = await client.chatCompletion({
         provider: "novita", 
