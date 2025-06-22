@@ -44,24 +44,25 @@
                 color: #ffffff;
             }
 
+            #Items
+            {
+                flex-direction: column;
+                display: flex;
+            }
+
             .result-container
             {
                 font-size: 20px;
                 border-radius: 10px;
                 border-width: 5px;
                 border-style: solid;
-                border-color: rgb(43, 5, 72); /* Bright pink */
-                color: black;
-                /*background: radial-gradient(circle, rgb(73, 14, 102) 0%, rgb(77, 34, 126) 100%);*/                
+                border-color: rgb(43, 5, 72); 
+                color: black;            
                 padding: 30px;
                 text-align: center;
-                /*margin-right: 20px;
-                margin-left: 50em;
-                */
                 margin-top: 20px;
                 width: 600px;
                 height: 800px;
-                /*overflow-y: scroll;*/
                 position: relative;
                 overflow: auto;
             }
@@ -143,6 +144,7 @@
                 <!--<p class="result-container hidden" id="output"></p>-->
                 <canvas class = "result-container hidden" id="output"></canvas>
             </div>
+            <div id="Items" style="display: flex; justify-content: left;"></div>
         </div>
         
         <div style="margin-top: 20px;" class = "form-group">
@@ -192,6 +194,7 @@
             }
 
             const result_container = document.getElementById('output');
+            const List = document.getElementById('Items');
             const ctx = result_container.getContext('2d');
             var pdfData = {
                 zoom: 1, 
@@ -216,6 +219,7 @@
                     console.log("Selected file", fileInput.files[0]);
             
                     const result = await response.json();
+                    console.log("Result from server", JSON.stringify(result, null, 2));
             
                     if (result.show_pdf) {
                         //const pdfjsLib = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.507/pdf.min.js');
@@ -243,8 +247,16 @@
                             });
                         }
                     } else {
-                        alert('Error Resume-analyzer Please try again.'); 
+                        alert('Error Resume-analyzer. Please try again.'); 
                     }
+
+                    
+                    if(result.displayAI)
+                    {
+                        List.innerHTML += `<p class="result-container">${result.displayAI}</p>`;
+                    }
+                        
+
                 } catch (error) {
                     console.error('Error:', error);
                     alert('Failed. Ensure the server is running.');

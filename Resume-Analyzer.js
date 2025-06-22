@@ -122,6 +122,16 @@ function frequencyCounts(text)
 
 //------------------------------
 
+/*
+export async function displayTest()
+{
+    const Test = ["Cars", "Bikes", "Trucks"];
+    
+    return Test;
+}
+
+*/
+
 // Named entity recognition should be used for extracting the different titles of resumes
 
 // This section extracts text from a pdf file

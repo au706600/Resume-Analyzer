@@ -134,9 +134,11 @@ console.log(chatCompletion.choices[0].message.content);
 //-- https://huggingface.co/docs/inference-providers/index
 //-- https://huggingface.co/docs/inference-providers/providers/novita
 
+
+
 // Bot-Ai
 import { InferenceClient } from "@huggingface/inference";
-import {dotenv} from 'dotenv';
+import dotenv from 'dotenv';
 dotenv.config();
 
 export async function AI_Resume_Analyzer(resume)
@@ -154,3 +156,6 @@ export async function AI_Resume_Analyzer(resume)
 
     return chatCompletion.choices[0].message.content;
 }
+
+
+

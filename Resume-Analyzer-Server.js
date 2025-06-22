@@ -9,16 +9,18 @@ import http from 'http';
 import * as formidable from 'formidable';
 //const fs = require('fs');
 import fs from 'fs';
+import pdf from 'pdf-parse';
 //const path = require('path');
 import path from 'path';
 //const { showPdf} = require('./Resume-Analyzer.js');
 import { showPdf } from './Resume-Analyzer.js';
+import { AI_Resume_Analyzer } from './ai-bot-analyzer.js';
 
 // import {AI_Resume_Analyzer} from './ai-bot-analyzer.js';
 
 import { fileURLToPath } from 'url';
 
-http.createServer((req, res) => {
+http.createServer((req, res) => { 
 
     /*
     if(req.method == 'GET' && req.url.startsWith('/js/'))
@@ -79,7 +81,11 @@ http.createServer((req, res) => {
                     originalFilename: file.originalFilename,
                     mimetype: file.mimetype
                 });
+                const pdfBuffer = fs.readFileSync(file.filepath);
+                const pdfData = await pdf(pdfBuffer);
                 const show_pdf = await showPdf(file.filepath);
+                const displayAI = await AI_Resume_Analyzer(pdfData.text);
+                //console.log("AI Analysis Result: ", displayAI);
                 //console.log("PDF content: ", show_pdf);
                 //console.log("Extracted text:", extractedText);
                 /*
@@ -92,7 +98,7 @@ http.createServer((req, res) => {
 
                 //console.log("Sending results: ", {show_pdf: show_pdf});
                 res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ show_pdf: show_pdf }));
+                res.end(JSON.stringify({ show_pdf: show_pdf, displayAI: displayAI }));
                 return;
                 
             } catch (error) {
