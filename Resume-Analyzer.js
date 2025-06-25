@@ -120,6 +120,55 @@ function frequencyCounts(text)
 
     //module.exports = {showPdf};
 
+//---------------------------------
+
+import { PdfReader } from "pdfreader";
+
+export async function extractTextPDF(filePath)
+{
+    return new Promise((resolve, reject) => {
+        const reader = new PdfReader();
+        const rows = {};
+        let fullText = "";
+        reader.parseFileItems(filePath, (err, item) => {
+            if (err)
+            {
+                reject(err);
+            }
+
+            if(!item)
+            {
+                try{
+                    Object.keys(rows).sort((y1, y2) => parseFloat(y1) - parseFloat(y2)).forEach((y) => {
+                        const row = rows[y];
+                        row.sort((a, b) => a.x - b.x);
+                        const line = row.map((token) => token.text).join("");
+                        fullText += line + "\n";
+                    })
+                    resolve(fullText);
+                }
+                catch(error)
+                {
+                    console.error("Error processing PDF:", error.message);
+                    reject(error);
+                }
+                return;
+            }
+
+            if (item.text)
+            {
+                item.text = item.text
+                .replace(/([A-Z])\s(?=[A-Z])/g, "$1")
+                .replace(/\b([A-Z])\s+/g, "$1");
+
+                (rows[item.y] = rows[item.y] || []).push({ text: item.text, x: item.x });
+            }
+        });
+    });
+}
+
+
+
 //------------------------------
 
 /*

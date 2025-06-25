@@ -1,8 +1,6 @@
 
 // Jamesjaxccbhfdbfhdsbfbdshff
 
-// Hugging-face API key: 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
-
 //const client = new OpenAI();
 //import {pipeline} from '@huggingface/transformers';
 
@@ -150,12 +148,14 @@ export async function AI_Resume_Analyzer(resume)
         model: "deepseek-ai/DeepSeek-V3-0324",
         messages: [{
             role: "user", 
-            content: `Analyze each section of the resume and provide feedback and suggestions for improvement. Resume: ${resume}`,
+            //content: `Analyze each section of the resume and provide feedback and suggestions for improvement. Resume: ${resume}`,
+            content: `Analyze the following resume and provide feedback and suggestions for improvement. Resume: ${resume}`,
         },],
     });
 
     return chatCompletion.choices[0].message.content;
 }
+
 
 
 

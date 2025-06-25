@@ -251,9 +251,16 @@
                     }
 
                     
+                    
                     if(result.displayAI)
                     {
                         List.innerHTML += `<p class="result-container">${result.displayAI}</p>`;
+                    }
+
+                    if(result.error)
+                    {
+                        alert("Server Error: " + result.error);
+                        return;
                     }
                         
 
