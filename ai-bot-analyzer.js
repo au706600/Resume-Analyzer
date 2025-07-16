@@ -133,7 +133,6 @@ console.log(chatCompletion.choices[0].message.content);
 //-- https://huggingface.co/docs/inference-providers/providers/novita
 
 
-
 // Bot-Ai
 import { InferenceClient } from "@huggingface/inference";
 import dotenv from 'dotenv';
@@ -144,17 +143,41 @@ export async function AI_Resume_Analyzer(resume)
     const client = new InferenceClient(process.env.apiKey);
 
     const chatCompletion = await client.chatCompletion({
-        provider: "novita", 
+        provider: "novita",
         model: "deepseek-ai/DeepSeek-V3-0324",
         messages: [{
-            role: "user", 
-            //content: `Analyze each section of the resume and provide feedback and suggestions for improvement. Resume: ${resume}`,
-            content: `Analyze the following resume and provide feedback and suggestions for improvement. Resume: ${resume}`,
-        },],
+            role: "user",
+            content: `
+            Analyze the following resume and provide feedback and suggestions for improvement.
+            Your feedback should be structured as the following:
+            ---###Strengths)
+            ---###Areas for Improvement)
+            ---###Final Notes)
+            Resume: ${resume}
+                        `,
+            }],
     });
 
-    return chatCompletion.choices[0].message.content;
+    const message_content = chatCompletion.choices[0].message.content;
+
+    const Regex = /---\s*[#*]*\s*(.+?)\)*\s*[:]*\s*\n([\s\S]*?)(?=---|$)/g;
+
+    const map = new Map();
+
+    for(const match of message_content.matchAll(Regex))
+    {
+        const title = match[1].trim();
+        const content = match[2].trim();
+
+        map.set(title, content);
+    }
+
+    return Object.fromEntries(map);
 }
+
+
+
+
 
 
 

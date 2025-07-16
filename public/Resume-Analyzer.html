@@ -15,10 +15,13 @@
             crossorigin="anonymous"
         />
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 
         <style>
+            /*
             textarea
             {
                 height: 300px;
@@ -26,6 +29,7 @@
                 position: relative;
                 margin-left: 30px;
             }
+            */
 
             .form-control
             {
@@ -50,6 +54,11 @@
                 display: flex;
             }
 
+            #output
+            {
+                max-width: 100%;
+            }
+
             .result-container
             {
                 font-size: 20px;
@@ -66,6 +75,30 @@
                 position: relative;
                 overflow: auto;
             }
+
+            #arr-list
+            {
+                display: flex;
+                flex-direction: column;
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            #arr-list li
+            {
+                border-width: 5px;
+                border-style: solid;
+                border-color: rgb(43, 5, 72); 
+                color: black; 
+                border-radius: 10px;
+                padding: 15px 20px;
+                background-color: #f9f9f9;
+                font-family: Arial, sans-serif;
+                width: 500px;
+                line-height: 1.5;
+                transition: 0.2s;
+            }
             
 
             #inline-forms
@@ -79,6 +112,7 @@
             {
                 display: none;
             }
+
 
         </style>
     </head> 
@@ -139,12 +173,16 @@
         </footer>
 
         <div style="display: flex; justify-content: center; margin: 20px; margin-top: 20px;">
-            <textarea class="textarea" id="inline-form"></textarea>
+            <!--<textarea class="textarea" id="inline-form"></textarea> -->
             <div id="inline-forms" style="margin: auto;">
                 <!--<p class="result-container hidden" id="output"></p>-->
                 <canvas class = "result-container hidden" id="output"></canvas>
             </div>
-            <div id="Items" style="display: flex; justify-content: left;"></div>
+            <div class="fa fa-refresh fa-spin hidden" style="top: 50%; left: 50%; position: fixed; font-size: 20px;"></div>
+            <div id="Items" style="display: flex; justify-content: left;">
+                <ul id="arr-list">
+                </ul>
+            </div>
         </div>
         
         <div style="margin-top: 20px;" class = "form-group">
@@ -175,6 +213,9 @@
 
         <script>
             // https://www.nutrient.io/blog/how-to-build-a-javascript-pdf-viewer-with-pdfjs/
+            // https://stackoverflow.com/questions/74724367/how-to-add-items-as-children-of-an-unordered-list-using-javascript
+            // https://codesignal.com/learn/courses/making-a-dynamic-todo-list-with-javascript/lessons/linking-javascript-to-dynamically-add-items
+            
             //const text_area = document.querySelector('.textarea');
 
             // 
@@ -194,7 +235,6 @@
             }
 
             const result_container = document.getElementById('output');
-            const List = document.getElementById('Items');
             const ctx = result_container.getContext('2d');
             var pdfData = {
                 zoom: 1, 
@@ -203,13 +243,16 @@
 
             document.querySelector('.button1').addEventListener('click', async () => {
                 const fileInput = document.getElementById('file');
+                var loadingScreen = document.querySelector('.fa.fa-refresh.fa-spin');
+
                 if (!fileInput.files.length) {
                     alert('Please upload a PDF file.');
                     return;
                 }
             
                 const formData = new FormData();
-                formData.append('file', fileInput.files[0]); 
+                formData.append('file', fileInput.files[0]);
+                loadingScreen.classList.remove('hidden'); 
                 try {
                     const response = await fetch('/', {
                         method: 'POST',
@@ -218,8 +261,7 @@
 
                     console.log("Selected file", fileInput.files[0]);
             
-                    const result = await response.json();
-                    console.log("Result from server", JSON.stringify(result, null, 2));
+                    const result = await response.json(); 
             
                     if (result.show_pdf) {
                         //const pdfjsLib = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.507/pdf.min.js');
@@ -227,7 +269,6 @@
                         //const retrieveDocument = pdfjsLib.getDocument(result.show_pdf);
                         
                         const arrayBuffer = base64ToArrayBuffer(result.show_pdf);
-                        console.log("ArrayBuffer", arrayBuffer);
                         pdfjsLib.getDocument({data: arrayBuffer}).promise.then((pdfDoc) => {
                             return render(pdfDoc);
                         });
@@ -250,23 +291,39 @@
                         alert('Error Resume-analyzer. Please try again.'); 
                     }
 
-                    
-                    
-                    if(result.displayAI)
-                    {
-                        List.innerHTML += `<p class="result-container">${result.displayAI}</p>`;
-                    }
+                    //console.log("Is it array?", Array.isArray(result.displayAI));
+                    //console.log("Display AI message:", result.displayAI);
+                    //console.log("Display the content of AI message", result.displayAI[0]);
 
-                    if(result.error)
+                    if(result.displayAI && typeof result.displayAI === 'object')
                     {
-                        alert("Server Error: " + result.error);
-                        return;
+                        //List.innerHTML = `<p class="result-container">${result.displayAI}</p>`;
+                        const list = document.getElementById('arr-list');
+
+                        /*
+                        result.displayAI.forEach(element => {
+                            const li = document.createElement('li');
+                            li.textContent = element;
+                            list.appendChild(li);
+                        });
+                        */
+
+                        for(const [title, content] of Object.entries(result.displayAI))
+                        {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<strong>${title}:</strong> ${content}`;
+                            list.appendChild(li);
+                        }
                     }
                         
 
                 } catch (error) {
                     console.error('Error:', error);
                     alert('Failed. Ensure the server is running.');
+                }
+
+                finally {
+                    loadingScreen.classList.add('hidden'); 
                 }
             });
         </script> 

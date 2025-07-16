@@ -22,26 +22,6 @@ import { fileURLToPath } from 'url';
 
 http.createServer((req, res) => { 
 
-    /*
-    if(req.method == 'GET' && req.url.startsWith('/js/'))
-    {
-        const filePath = path.join(__dirname, req.url);
-        fs.readFile(filePath, (err, data) => {
-            if (err) {
-                res.writeHead(404, { 'Content-Type': 'text/plain' });
-                res.end('File not found');
-                return;
-            }
-            else {
-            res.writeHead(200, { 'Content-Type': 'application/javascript' });
-            res.end(data);
-            }
-        });
-        return;
-    }
-
-    */
-
     if(req.method == 'GET')
     {
         const __filename = fileURLToPath(import.meta.url);
@@ -79,7 +59,7 @@ http.createServer((req, res) => {
                 console.log("File properties: ", {
                     filepath: file.filepath,
                     originalFilename: file.originalFilename,
-                    mimetype: file.mimetype
+                    mimetype: file.mimetype 
                 });
 
                 const extractText = await extractTextPDF(file.filepath);
@@ -103,28 +83,4 @@ http.createServer((req, res) => {
 
 
 //----------------------------------
-
-/*
-                const pdfBuffer = fs.readFileSync(file.filepath);
-                const pdfData = await pdf(pdfBuffer);
-                const show_pdf = await showPdf(file.filepath);
-                const displayAI = await AI_Resume_Analyzer(pdfData.text);
-                */
-                //console.log("AI Analysis Result: ", displayAI);
-                //console.log("PDF content: ", show_pdf);
-                //console.log("Extracted text:", extractedText);
-                /*
-                if (!show_pdf.length) {
-                    res.writeHead(200, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({show_pdf: show_pdf}));
-                    return;
-                }
-                */
-
-                //console.log("Sending results: ", {show_pdf: show_pdf});
-                /*
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ show_pdf: show_pdf, displayAI: displayAI}));
-                return;
-                */
 
