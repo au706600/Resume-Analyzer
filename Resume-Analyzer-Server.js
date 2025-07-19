@@ -70,6 +70,7 @@ http.createServer((req, res) => {
                 res.end(JSON.stringify({ show_pdf, displayAI }));
                 
             } catch (error) {
+                console.error("Server error:", error);
                 if(!res.headersSent) {
                     res.writeHead(500, { 'Content-Type': 'text/plain' });
                     res.end(JSON.stringify({error: error.message}));

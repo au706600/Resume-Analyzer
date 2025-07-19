@@ -21,30 +21,57 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 
         <style>
-            /*
-            textarea
+            
+            .form-group
             {
-                height: 300px;
-                width: 100px;
-                position: relative;
-                margin-left: 30px;
+                border-color: white;
+                border-radius: 15px;
+                background-color: wheat;
+                border-style: solid;
+                padding: 30px;
+                width: 500px;
+                margin: 20px;
+                font-size: 15px;
+                color: white;
             }
-            */
+            
 
             .form-control
             {
-                display: inline-block;
+                display: inline-block; 
+            }
+
+            #file
+            {
+                width: 400px;
+            }
+
+            .ai-field
+            {
+                width: 400px;
+                height: 40px;
+                border-radius: 10px;
+                border-style: solid;
+                border-color: rgb(43, 5, 72);
+                padding: 10px;
+                font-size: 16px;
             }
 
             .button1
             {
-                background-color: #04AA6D;
+                background: linear-gradient(to right, #6ba8ff, #9d85f8);
                 width: auto;
                 color: #ffffff;
+                border: none;
+                padding: 14px 28px;
+                font-size: 16px;
+                font-weight: 500;
+                width: 400px;
+                border-radius: 10px;
             }
             
             .button1:focus {
-                background-color: #04AA6D;
+                background: linear-gradient(to right, #6ba8ff, #9d85f8);
                 color: #ffffff;
             }
 
@@ -85,7 +112,7 @@
                 margin: 0;
             }
 
-            #arr-list li
+            #arr-list > li
             {
                 border-width: 5px;
                 border-style: solid;
@@ -95,16 +122,61 @@
                 padding: 15px 20px;
                 background-color: #f9f9f9;
                 font-family: Arial, sans-serif;
-                width: 500px;
-                line-height: 1.5;
-                transition: 0.2s;
+                width: 700px;
+            }
+
+            .bullet-point
+            {
+                line-height: 2.0;
+                font-family: Georgia, serif;
+                list-style-type: disc;
+                display: list-item;
+            }
+
+            .bullet-point::marker
+            {
+                color: black;
             }
             
 
             #inline-forms
             {
-                display: block;
-                overflow: auto;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: flex-start;
+                gap: 50px;
+                margin: 20px;
+            }
+
+            .left-column
+            {
+                display: flex;
+                flex-direction: column;
+                margin-left: 70px; 
+            }
+
+            .right-column
+            {
+                display: flex;
+                flex-direction: column;
+                margin-top: 40px;
+                margin-left: 100px;
+            }
+
+            .canvas-wrapper
+            {
+                margin-top: 30px;
+            }
+
+            .headers
+            {
+                font-family: 'Poppins', sans-serif;
+                font-size: 2.2rem;
+                font-weight: 600;
+                color: #2c2c2c;
+                text-align: center;
+                margin-top: 20px;
             }
 
             
@@ -167,35 +239,44 @@
         </header>
 
         <main></main>
-        <footer>
-             <p> Author: James Jacobsen</p>
-             <p><a href="mailto:mr2018.dk@gmail.com">mr2018.dk@gmail.com</a></p>
-        </footer>
 
-        <div style="display: flex; justify-content: center; margin: 20px; margin-top: 20px;">
-            <!--<textarea class="textarea" id="inline-form"></textarea> -->
-            <div id="inline-forms" style="margin: auto;">
-                <!--<p class="result-container hidden" id="output"></p>-->
-                <canvas class = "result-container hidden" id="output"></canvas>
+        <h1 class="headers">Optimize for Success - Get Feedback on your Resume</h1>
+
+        <div id="inline-forms" class="container">
+            <div class="left-column">
+                <div class = "form-group">
+                    <p style="color: black; font-weight: bold;" > Upload Resume</p>
+                    <input style="width: 400px;" type="file" name="file" id="file" class="form-control" />
+                    <br>
+                    <br>
+                    <br>
+                    <p style="color: black; font-weight: bold;"> AI model</p>
+                    <input type="text" value="deepseek-ai/DeepSeek-V3" class="ai-field" readonly/> 
+                    <br>
+                    <br>
+                    <br>
+                    <button class="button1" type="button">Upload & Analyze</button>
+                </div>
+    
+                <div class="canvas-wrapper">
+                    <canvas class = "result-container hidden" id="output"></canvas>
+                </div>
             </div>
-            <div class="fa fa-refresh fa-spin hidden" style="top: 50%; left: 50%; position: fixed; font-size: 20px;"></div>
-            <div id="Items" style="display: flex; justify-content: left;">
-                <ul id="arr-list">
-                </ul>
+
+            <div class="right-column">
+                <div id="Items">
+                    <ul id="arr-list">
+                    </ul>
+                </div>
             </div>
+
         </div>
-        
-        <div style="margin-top: 20px;" class = "form-group">
-            <input style="width: auto;" type="file" name="file" id="file" class="form-control" />
-            <button class="button1" type="button">Upload & Scan</button>
+
+        <div style="display: flex; justify-content: center; margin: 20px;">
+            <!--<textarea class="textarea" id="inline-form"></textarea> -->
+            <div class="fa fa-refresh fa-spin hidden" style="top: 50%; left: 50%; position: fixed; font-size: 20px;"></div>
         </div>
     
-        <!--
-        <section data-closable>
-            <p class="hidden" id="result" data-close></p>
-        </section> 
-
-    -->
 
         <!-- Bootstrap JavaScript Libraries -->
         <script
@@ -215,10 +296,34 @@
             // https://www.nutrient.io/blog/how-to-build-a-javascript-pdf-viewer-with-pdfjs/
             // https://stackoverflow.com/questions/74724367/how-to-add-items-as-children-of-an-unordered-list-using-javascript
             // https://codesignal.com/learn/courses/making-a-dynamic-todo-list-with-javascript/lessons/linking-javascript-to-dynamically-add-items
-            
+
             //const text_area = document.querySelector('.textarea');
 
             // 
+
+            function displayNestedList(map, parentElement)
+            {
+                const list = document.getElementById('arr-list');
+
+                for(const [title, content] of Object.entries(map))
+                {
+                    const li = document.createElement('li');
+                    const bulletUl = document.createElement('ul');
+                    //const splitContent = content.split(/(?=\d+\.\s)/).map(point => point.trim()).filter(Boolean);
+                    li.innerHTML = `<strong>${title}:</strong>`;
+                    content.forEach((point) => {
+                        const bulletLi = document.createElement('li');
+                        bulletLi.textContent = point.replace(/^\d+\.\s*/, '');
+                        bulletLi.classList.add('bullet-point');
+                        bulletUl.appendChild(bulletLi);
+                    });
+                    li.appendChild(bulletUl);
+                    list.appendChild(li);
+                }
+                
+            }
+
+
             // Function to convert base64 string to ArrayBuffer, as arrayBuffer is needed for pdfjsLib
             function base64ToArrayBuffer(base64)
             {
@@ -259,6 +364,7 @@
                         body: formData, 
                     });
 
+
                     console.log("Selected file", fileInput.files[0]);
             
                     const result = await response.json(); 
@@ -298,22 +404,18 @@
                     if(result.displayAI && typeof result.displayAI === 'object')
                     {
                         //List.innerHTML = `<p class="result-container">${result.displayAI}</p>`;
-                        const list = document.getElementById('arr-list');
+                        //const list = document.getElementById('arr-list');
 
-                        /*
-                        result.displayAI.forEach(element => {
-                            const li = document.createElement('li');
-                            li.textContent = element;
-                            list.appendChild(li);
-                        });
-                        */
+                       
+                       // for(const [title, content] of Object.entries(result.displayAI))
+                       // {
+                       //     const mainPoints = content.split(/\d+\.\s*/).filter(Boolean);
+                       //     const li = document.createElement('li');
+                       //     li.innerHTML = `<strong>${title}:</strong> ${content}`;
+                       //     list.appendChild(li);
+                       // }
 
-                        for(const [title, content] of Object.entries(result.displayAI))
-                        {
-                            const li = document.createElement('li');
-                            li.innerHTML = `<strong>${title}:</strong> ${content}`;
-                            list.appendChild(li);
-                        }
+                       displayNestedList(result.displayAI, document.getElementById('arr-list'));
                     }
                         
 

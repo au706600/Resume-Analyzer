@@ -4,66 +4,7 @@
 //const client = new OpenAI();
 //import {pipeline} from '@huggingface/transformers';
 
-/*
-async function code()
-{
-    const translater = await pipeline('text-generation', 'Xenova/distilgpt2', {
-        dtype: 'fp32'
-    });
 
-    const prompt = "Q:What is an apple?\nA:"
-
-    const response = await translater(prompt, {
-        max_new_tokens: 100,
-        temperature: 0.7,
-        top_k: 50,
-        top_p: 0.95,
-        repetition_penalty: 1.2
-    });
-
-    console.log(response[0].generated_text);
-
-    //--------------------------------------------
-
-    const Poet = await pipeline('text2text-generation', 'Xenova/LaMini-Flan-T5-783M',{
-        dtype: 'fp32',
-        quantized: true
-    });
-
-    const result = await Poet("Write me a poem about cheese", {
-        max_new_tokens: 200,
-        temperature: 0.9,
-        repetition_penalty: 2.0,
-        no_repeat_ngram_size: 3,
-    });
-
-    console.log(result[0].generated_text);
-
-    //--------------------------------------------
-
-    const model = await pipeline("text-generation", "onnx-community/Qwen2.5-Coder-0.5B-Instruct", {
-        dtype: "q4"
-    });
-
-    const message = [{
-        role: "user", 
-        content: "Write a quick sort algorithm in javascript",
-    }];
-
-    const result = await model(message, {
-        max_new_tokens: 200, 
-        temperature: 0.3, 
-        repetition_penalty: 2.0, 
-        no_repeat_ngram_size: 3,
-        //do_sample: false, 
-        //streamer: streamer
-    });
-
-    console.log(result[0].generated_text.find((msg) => msg.role === "assistant").content);
-
-}
-
-*/
 
 //-------------------------------------------------'
 
@@ -140,6 +81,13 @@ dotenv.config();
 
 export async function AI_Resume_Analyzer(resume)
 {
+
+    if(!process.env.apiKey)
+    {
+        console.error("API key is not set in the environment variables.");
+        throw new Error("API key is not set in the environment variables.");
+    }
+    
     const client = new InferenceClient(process.env.apiKey);
 
     const chatCompletion = await client.chatCompletion({
@@ -166,12 +114,19 @@ export async function AI_Resume_Analyzer(resume)
 
     for(const match of message_content.matchAll(Regex))
     {
-        const title = match[1].trim();
-        const content = match[2].trim();
+        let title = match[1].trim();
+        title = title.replace(/\*\*/g, '');
 
-        map.set(title, content);
+        let content = match[2].trim();
+        content = content.replace(/\*\*/g, '');
+        
+        const bullet_points = content.split(/(?=\d+\.\s)/)
+                                     .map(point => point.trim())
+                                     .filter(Boolean);
+
+        map.set(title, bullet_points);
     }
-
+ 
     return Object.fromEntries(map);
 }
 
