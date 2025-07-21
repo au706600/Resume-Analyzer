@@ -7,7 +7,7 @@ An awesome tool for Resume Analysis and Resume Improvements.
 - [📘 Project Description](#-project-description)
 - [🧰 Prerequisites](#-prerequisites)
 - [✨ Features](#-features)
-- [🛠️ Tech Stack](#-tech-stack)
+- [🛠️ Tech Stack](#tech-stack)
 - [📦 Installation](#-installation)
 - [🧱 Directory Structure](#-directory-structure-of-ai-resume-analyzer)
 - [🎥 Demo](#-demo)
