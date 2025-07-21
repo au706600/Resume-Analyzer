@@ -11,12 +11,12 @@ An awesome tool for Resume Analysis and Resume Improvements.
 - [📦 Installing](#installing)
 - [🎥 Demo](#demo)
 
-##📘 Project Description
+## 📘 Project Description
 
 AI-Resume-Analyzer is a responsive web application that uses the AI-model, DeepSeek, to analyze uploaded resumes and provide feedback and suggestions for improvement. 
 The project follows a modular architecture, separating frontend rendering, PDF processing, and AI integration to ensure maintainability and scalability.
 
-###🧰 Prerequisites
+## 🧰 Prerequisites
 
 To ensure smooth experience, have the following installed: 
 
@@ -28,14 +28,12 @@ To ensure smooth experience, have the following installed:
   
 
 
-##✨ Features
+## ✨ Features
 
 * Upload Resume on webserver
 * AI parses information from PDF and provides feedback and suggestions for improveent. 
 
-##🛠️ Tech Stack
-
-## 🧰 Tech Stack
+## 🛠️ Tech Stack
 
 <details open>
   <summary><strong>Frontend</strong></summary>
@@ -66,7 +64,7 @@ To ensure smooth experience, have the following installed:
 </details>
 
 
-###📦 Installing
+### 📦 Installing
 
 A step by step series of examples that tell you how to get a development env running
 
@@ -84,7 +82,7 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
-##🎥 Demo
+## 🎥 Demo
 
 
 
