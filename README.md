@@ -4,12 +4,14 @@ An awesome tool for Resume Analysis and Resume Improvements.
 
 ## 📚 Table of Contents
 
-- [📘 Project Description](#project-description)
-- [🧰 Prerequisites](#prerequisites)
-- [✨ Features](#features)
-- [🛠️ Tech Stack](#tech-stack)
-- [📦 Installing](#installing)
-- [🎥 Demo](#demo)
+- [📘 Project Description](#-project-description)
+- [🧰 Prerequisites](#-prerequisites)
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#-tech-stack)
+- [📦 Installation](#-installation)
+- [🧱 Directory Structure](#-directory-structure-of-ai-resume-analyzer)
+- [🎥 Demo](#-demo)
+- [📌 Future Work](#-future-work)
 
 ## 📘 Project Description
 
@@ -61,41 +63,59 @@ To ensure smooth experience, have the following installed:
 </details>
 
 
-### 📦 Installing
+### 📦 Installation
 
-A step by step series of examples that tell you how to get a development env running
+To run the project locally, run the following steps: 
 
-Say what the step will be
+1. Clone the repository
+If you haven't yet, first set up Git and authentication with GitHub.com from Git. For more information, please see <a href="https://docs.github.com/en/get-started/git-basics/set-up-git">Set up Git</a>. Click on <> Code and copy the URL of the repository that should look like the following:  
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+```bash
+   git clone https://github.com/au706600/Resume-Analyzer.git
 ```
 
-##  Layout
+2. Open Git Bash in whatever local file location in your computer and run the following:
 
-Directory structure of AI-Resume-Analyzer:
+```bash
+   git clone https://github.com/au706600/Resume-Analyzer.git
+   cd Resume-Analyzer
+```
 
-├── LICENSE
-├── README.md
-├── package.json
+3. Install Dependencies
+Make sure you have Node.js and npm installed. Then install packages: 
+```bash
+   npm install
+```
+
+4. Start the Server
+Run the following command to start the node.js server:
+```bash
+node Resume-Analyzer-Server.js
+```
+
+5. In your browser, open the application
+Navigate to:
+```bash
+http://localhost:3000
+```
+
+As a result, this will launch the GUI, allowing you to upload a resume, and receive AI-based analysis based on your resume. For more information, please see <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository">Cloning a repository</a>. 
+
+## 🧱 Directory Structure of AI-Resume-Analyzer
+
+```
+├── node_modules/  # (created by npm install, not shown)
 ├── public
-│   ├── favicon.ico
-│   ├── index.html
-│   ├── logo192.png
-│   ├── logo512.png
-│   ├── manifest.json
-│   └── robots.txt
-└── src
-    ├── index.css
-    ├── index.js
-    ├── reportWebVitals.js
-    └── setupTests.js
+│   ├── Resume-Analyzer.html
+├── .gitignore
+├── README.md
+├── Resume-Analyzer-Server.js
+├── Resume-Analyzer.js
+├── ai-bot-analyzer.js
+├── package-lock.json
+└── package.json
+```
+
 
 ## 🎥 Demo
 
