@@ -37,30 +37,27 @@ To ensure smooth experience, have the following installed:
 
 <details open>
   <summary><strong>Frontend</strong></summary>
-
-  - <a href="https://streamlit.io/">Streamlit</a>  
-  - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a>  
-  - <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a>  
-  - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">JavaScript</a>  
-  - <a href="https://mozilla.github.io/pdf.js/">PDF.js</a>  
+  
+  - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a> - Markup structure the content of webpage
+  - <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a> - Styling of webpage
+  - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">JavaScript</a> - DOM manipulation and logic. 
 </details>
 
 <details open>
   <summary><strong>Backend</strong></summary>
-
-  - <a href="https://streamlit.io/">Streamlit</a>  
-  - <a href="https://www.python.org/">Python</a>  
+  - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">JavaScript</a> - Built with Node.js, handling file uploads, PDF parsing, and AI-driven resume analysis. 
 </details>
 
 <details>
-  <summary><strong>Modules</strong></summary>
+  <summary><strong>Modules</strong></summary> 
+  - <a href="https://www.npmjs.com/package/dotenv">dotenv</a> 
+  - <a href="https://huggingface.co/docs/huggingface.js/index">InferenceClient</a>  
+  - <a href="https://www.npmjs.com/package/pdfreader">pdfreader</a>    
+  - <a href="https://nodejs.org/api/http.html">http</a>
+  - <a href="https://www.npmjs.com/package/formidable">formidable</a>
+  - <a href="https://nodejs.org/api/fs.html">fs</a>
+  - <a href="https://nodejs.org/api/path.html">path</a>
 
-  - <a href="https://pypi.org/project/pandas/">pandas</a>  
-  - <a href="https://pypi.org/project/pyresparser/">pyresparser</a>  
-  - <a href="https://pypi.org/project/pdfminer3/">pdfminer3</a>  
-  - <a href="https://www.npmjs.com/package/pdfreader">pdfreader</a>  
-  - <a href="https://plotly.com/python/">Plotly</a>  
-  - <a href="https://www.nltk.org/">NLTK</a>  
 </details>
 
 
@@ -80,9 +77,29 @@ And repeat
 until finished
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+##  Layout
+
+Directory structure of AI-Resume-Analyzer:
+
+├── LICENSE
+├── README.md
+├── package.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+└── src
+    ├── index.css
+    ├── index.js
+    ├── reportWebVitals.js
+    └── setupTests.js
 
 ## 🎥 Demo
+
+## 📌 Future Work
 
 
 
