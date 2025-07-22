@@ -51,16 +51,17 @@ To ensure smooth experience, have the following installed:
   - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">Node.js</a> - File handling, server-side logic, and AI-integration. 
 </details>
 
-<details>
-  <summary><strong>Modules</strong></summary> 
-  - <a href="https://www.npmjs.com/package/dotenv">dotenv</a> - Manage environment variables. 
-  - <a href="https://huggingface.co/docs/huggingface.js/index">InferenceClient</a> - Hugging Face API integration. 
-  - <a href="https://www.npmjs.com/package/pdfreader">pdfreader</a> - Text extraction from PDF files.    
-  - <a href="https://nodejs.org/api/http.html">http</a> - HTTP requests and responses. Fundamental for web applications. 
-  - <a href="https://www.npmjs.com/package/formidable">formidable</a> - Handle file uploads. 
-  - <a href="https://nodejs.org/api/fs.html">fs</a> - Interacting with the file system. 
-  - <a href="https://nodejs.org/api/path.html">path</a> - Working with file directories and paths. 
-
+<details open>
+  <summary><strong>Modules</strong></summary>
+  <ul>
+    <li><a href="https://www.npmjs.com/package/dotenv">dotenv</a> - Manage environment variables</li
+    <li><a href="https://huggingface.co/docs/huggingface.js/index">InferenceClient</a> - Hugging Face API integration</li>
+    <li><a href="https://www.npmjs.com/package/pdfreader">pdfreader</a> - Text extraction from PDF files</li>
+    <li><a href="https://nodejs.org/api/http.html">http</a> - HTTP requests and responses. Fundamental for web applications</li>
+    <li><a href="https://www.npmjs.com/package/formidable">formidable</a> - Handle file uploads</li>
+    <li><a href="https://nodejs.org/api/fs.html">fs</a> - Interacting with the file system</li>
+    <li><a href="https://nodejs.org/api/path.html">path</a> - Working with file directories and paths</li>
+  </ul>
 </details>
 
 
