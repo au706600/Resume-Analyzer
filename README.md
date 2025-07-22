@@ -33,7 +33,7 @@ To ensure smooth experience, have the following installed:
 ## ✨ Features
 
 * Upload resume (PDF format) via the web interface.
-* AI-powered resume and analysis. 
+* AI-powered resume analysis. 
 * AI-powered feedback and suggestions for improvement based on resume content. 
 
 ## 🛠️ Tech Stack
