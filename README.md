@@ -117,7 +117,7 @@ As a result, this will launch the GUI, allowing you to upload a resume, and rece
 ├── README.md
 ├── Resume-Analyzer-Server.js # Node.js server
 ├── Resume-Analyzer.js # Consists of two functions: 1) Function for reading pdf as databuffer and returns it as a Base64-encoded string, 2) Extract text from pdf. 
-├── ai-bot-analyzer.js # AI prompt for analyzing resume and provide feedback. It returns a map, where each entry consists of title and the corresponding contents. 
+├── ai-bot-analyzer.js # AI prompt for analyzing resume and provide feedback, divided into "Strengths", "Areas for Improvement", and "Final Notes". The function returns an object, where each key is a section title, for example "Strengths", and the value is an array of bullet-point suggestions. 
 ├── package-lock.json
 └── package.json
 ```
