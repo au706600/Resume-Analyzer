@@ -118,9 +118,26 @@ As a result, this will launch the GUI, allowing you to upload a resume, and rece
 
 
 ## 🎥 Demo
+### Client Side
+#### Main Screen
+
+<img width="1920" height="989" alt="image" src="https://github.com/user-attachments/assets/aa28c7f8-1c68-4e6d-9822-d6d8bc96d575" />
+
+#### Upload file and click on Upload & Analyze. 
+
+<img width="1920" height="792" alt="image" src="https://github.com/user-attachments/assets/791de182-c9be-4b79-9886-18a265a81bb5" />
+
+<img width="1920" height="878" alt="image" src="https://github.com/user-attachments/assets/e8e6f646-9a9c-420f-932a-003d9fa628d1" />
+
+<img width="1920" height="729" alt="image" src="https://github.com/user-attachments/assets/b33299e8-ed23-4952-8618-0286a9f12374" />
+
 
 ## 📌 Future Work
 
+Despite achieving our goals, there are still some possible work to be done to improve the product: 
+
+- A feature, where the AI parses information from a job description and give feedback on the resume based on the job description (Working on it)
+- A small guide, something like "How it works", would be nice to have in a home page maybe. 
 
 
 
