@@ -65,7 +65,7 @@ To ensure smooth experience, have the following installed:
 </details>
 
 
-### 📦 Installation
+## 📦 Installation
 
 To run the project locally, run the following steps: 
 
