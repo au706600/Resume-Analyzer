@@ -69,39 +69,43 @@ To ensure smooth experience, have the following installed:
 
 To run the project locally, run the following steps: 
 
-1. Clone the repository
+1. **Clone the repository**
+   
 If you haven't yet, first set up Git and authentication with GitHub.com from Git. For more information, please see <a href="https://docs.github.com/en/get-started/git-basics/set-up-git">Set up Git</a>. Click on <> Code and copy the URL of the repository that should look like the following:  
 
 ```bash
    git clone https://github.com/au706600/Resume-Analyzer.git
 ```
 
-2. Open Git Bash in whatever local file location in your computer and run the following:
+2. **Open Git Bash in whatever local file location in your computer and run the following**
 
 ```bash
    git clone https://github.com/au706600/Resume-Analyzer.git
    cd Resume-Analyzer
 ```
 
-3. Install Dependencies
-Make sure you have Node.js and npm installed. Then install packages: 
+3. **Install Dependencies**
+   
+Make sure you have Node.js and npm installed. Then install packages:
+
 ```bash
    npm install
 ```
 
-4. Create a .env file in the root directory and add your Hugging Face API key:
+4. **Create a .env file in the root directory and add your Hugging Face API key**
+   
 ```bash
    HUGGINGFACE_API_KEY=your_token_here
 ```
 
-5. Start the Server
-Run the following command to start the node.js server:
+5. **Start the Server**
+
 ```bash
 node Resume-Analyzer-Server.js
 ```
 
-6. In your browser, open the application
-Navigate to:
+6. **In your browser, open the application**
+
 ```bash
 http://localhost:3000
 ```
